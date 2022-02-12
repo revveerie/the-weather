@@ -5,6 +5,26 @@ import MainScreen from "./MainScreen.jsx";
 import Hourly from "./Hourly.jsx";
 import Daily from "./Daily.jsx";
 
+import d10 from "../assets/images/01d.png";
+import d20 from "../assets/images/02d.png";
+import d30 from "../assets/images/03d.png";
+import d40 from "../assets/images/04d.png";
+import d60 from "../assets/images/06d.png";
+import d01 from "../assets/images/10d.png";
+import d11 from "../assets/images/11d.png";
+import d31 from "../assets/images/13d.png";
+import d05 from "../assets/images/50d.png";
+
+import n10 from "../assets/images/01n.png";
+import n20 from "../assets/images/02n.png";
+import n30 from "../assets/images/03n.png";
+import n40 from "../assets/images/04n.png";
+import n60 from "../assets/images/06n.png";
+import n01 from "../assets/images/10n.png";
+import n11 from "../assets/images/11n.png";
+import n31 from "../assets/images/13n.png";
+import n05 from "../assets/images/50n.png";
+
 const Homepage = () => {
   const [currentInfo, setCurrentInfo] = useState([]);
   const [currentTimezone, setCurrentTimezone] = useState([]);
@@ -55,10 +75,12 @@ const Homepage = () => {
         uvi={currentInfo.uvi}
         windSpeed={currentInfo.wind_speed}
         icon={currentWeather.map((currentIcon, index) => {
-          return <div key={index}>Icon: {currentIcon.icon}</div>;
+          return <div key={index}>Icon: {currentIcon.icon}<img src={`https://raw.githubusercontent.com/vvyysotskaya/the-weather/main/src/assets/images/${currentIcon.icon}.png`}/></div>;
         })}
         weather={currentWeather.map((currentIcon, index) => {
-          return <div key={index}>Weather: {currentIcon.main}</div>;
+          return <div key={index}>
+            Weather: {currentIcon.main}
+          </div>;
         })}
       />
       <div>
@@ -72,7 +94,7 @@ const Homepage = () => {
                 dt={hourly.dt}
                 temp={hourly.temp}
                 icon={hourly.weather.map((hourlyIcon, index) => {
-                  return <div key={index}>Icon: {hourlyIcon.icon}</div>;
+                  return <div key={index}>Icon: {hourlyIcon.icon}<img src={`https://raw.githubusercontent.com/vvyysotskaya/the-weather/main/src/assets/images/${hourlyIcon.icon}.png`}/></div>;
                 })}
               />
             </div>
@@ -91,7 +113,7 @@ const Homepage = () => {
                 tempDay={daily.temp.day}
                 tempNight={daily.temp.night}
                 icon={daily.weather.map((dailyIcon, index) => {
-                  return <div key={index}>Icon: {dailyIcon.icon}</div>;
+                  return <div key={index}>Icon: {dailyIcon.icon}<img src={`https://raw.githubusercontent.com/vvyysotskaya/the-weather/main/src/assets/images/${dailyIcon.icon}.png`}/></div>;
                 })}
               />
             </div>
