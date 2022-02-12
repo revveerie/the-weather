@@ -1,13 +1,7 @@
-import './styles/index.scss';
-import './assets/fonts/Roboto-Regular.ttf';
-import './components/App.jsx';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./components/App.jsx";
 
-const app = document.getElementById('app');
+import "./styles/index.scss";
 
-const greeting = 'Hello World';
-
-app.innerHTML = `
-    <strong class="main-title">
-        ${greeting}. Webpack is working!
-    </strong>
-`;
+ReactDOM.render(<App />, document.getElementById("app"));

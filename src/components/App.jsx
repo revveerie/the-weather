@@ -1,7 +1,13 @@
-import WebpackLogo from '../assets/images/webpack.png';
+import React from "react";
 
-console.log('src logo', WebpackLogo);
+import Homepage from "./Homepage.jsx";
 
-const logo = document.querySelector('.logo');
+function App() {
+  return (
+    <>
+      <Homepage />
+    </>
+  );
+}
 
-logo.innerHTML = `<img class="logo__img" src="${WebpackLogo}">`;
+export default App;
