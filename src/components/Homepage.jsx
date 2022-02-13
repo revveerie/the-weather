@@ -17,7 +17,7 @@ import Hourly from "./Hourly.jsx";
 import Daily from "./Daily.jsx";
 
 const Homepage = () => {
-  let settings = {
+  var settings = {
     dots: false,
     infinite: true,
     speed: 500,
@@ -25,7 +25,73 @@ const Homepage = () => {
     slidesToScroll: 1,
     infinite: false,
     swipeToSlide: true,
+    responsive: [
+      {
+        breakpoint: 1220,
+        settings: {
+          slidesToShow: 5
+        }
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4
+        }
+      },
+      {
+        breakpoint: 860,
+        settings: {
+          slidesToShow: 6
+        }
+      },
+      {
+        breakpoint: 700,
+        settings: {
+          slidesToShow: 5
+        }
+      },
+      {
+        breakpoint: 575,
+        settings: {
+          slidesToShow: 4
+        }
+      },
+      {
+        breakpoint: 400,
+        settings: {
+          slidesToShow: 3
+        }
+      },
+    ]
   };
+
+  // window.onresize = function() {
+  //   let windowInnerWidth = window.innerWidth;
+  //   if (windowInnerWidth <= 1220) {
+  //     var settings = {
+  //       dots: false,
+  //       infinite: true,
+  //       speed: 500,
+  //       slidesToShow: 6,
+  //       slidesToScroll: 1,
+  //       infinite: false,
+  //       swipeToSlide: true,
+  //     };
+  //   } else {
+  //     var settings = {
+  //       dots: false,
+  //       infinite: true,
+  //       speed: 500,
+  //       slidesToShow: 6,
+  //       slidesToScroll: 1,
+  //       infinite: false,
+  //       swipeToSlide: true,
+  //     };
+  //   }
+  //   console.log(settings)
+  //   return settings;
+  // };
+
 
   const [currentInfo, setCurrentInfo] = useState([]);
   const [currentWeather, setCurrentWeather] = useState([]);
@@ -33,7 +99,7 @@ const Homepage = () => {
   const [dailyInfo, setDailyInfo] = useState([]);
   const [cityName, setCityName] = useState([]);
   let cleanupFunction = false;
-  // useEffect(() => {
+  useEffect(() => {
     const API_KEY = "76de2e175fe2b2a951e9d9be8908fc9c";
     window.onload = function () {
       if ("geolocation" in navigator) {
@@ -80,7 +146,7 @@ const Homepage = () => {
         console.log("Browser doesn't support geolocation!");
       }
     };
-  // });
+  });
   return (
     <div className="homepage">
       <div className="main-screen">

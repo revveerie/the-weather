@@ -11,14 +11,26 @@
        width: 100px!important;
        padding: 10px;
        border-radius: 20px;
+       @media(max-width: 480px) {
+            width: 85px!important;
+        }
+        @media(max-width: 315px) {
+            width: 70px!important;
+        }
     }
     &__card-image {
         width: 50%;
         display: flex;
         justify-content: center;
         margin: 0 0 10px 0;
-       img {
-           height: 60px;
+        img {
+            height: 60px;
+            @media(max-width: 480px) {
+                height: 40px;
+            }
+            @media(max-width: 315px) {
+                height: 30px;
+            }
        }
    }
    &__temp-wrapper {

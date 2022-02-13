@@ -20,6 +20,12 @@ body {
   overflow: hidden
 }
 
+.additional-info {
+  @media(max-width: 860px) {
+    width: 100%;
+  }
+}
+
 // FILES
 @import './components/Homepage.scss';
 @import './components/MainScreen.scss';

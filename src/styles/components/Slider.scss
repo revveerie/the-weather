@@ -1,5 +1,14 @@
 .slick-slider {
     width: 800px;
+    @media(max-width: 1220px) {
+        width: 600px;
+    }
+    @media(max-width: 1024px) {
+        width: 450px;
+    }
+    @media(max-width: 860px) {
+        width: 100%;
+    }
 }
 
 .slick-slide {
