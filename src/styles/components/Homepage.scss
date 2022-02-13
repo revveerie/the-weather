@@ -4,8 +4,10 @@
     justify-content: space-around;
     height: 100vh;
     align-items: center;
+    position: relative;
     @media(max-width: 860px) {
         flex-direction: column;
-        height: auto;
+        height: 100vh;
+        overflow: hidden;
     }
 }

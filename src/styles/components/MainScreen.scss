@@ -1,14 +1,9 @@
 .main-screen {
     padding: 20px;
-    background: #fff;
     border-radius: 20px;
     margin: 0 20px 0 0;
     @media(max-width: 860px) {
         margin: 0 0 20px 0;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
     }
     &__date {
         margin: 0 0 10px 0;

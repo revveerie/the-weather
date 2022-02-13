@@ -65,42 +65,44 @@ const Homepage = () => {
     ]
   };
 
-  // window.onresize = function() {
-  //   let windowInnerWidth = window.innerWidth;
-  //   if (windowInnerWidth <= 1220) {
-  //     var settings = {
-  //       dots: false,
-  //       infinite: true,
-  //       speed: 500,
-  //       slidesToShow: 6,
-  //       slidesToScroll: 1,
-  //       infinite: false,
-  //       swipeToSlide: true,
-  //     };
-  //   } else {
-  //     var settings = {
-  //       dots: false,
-  //       infinite: true,
-  //       speed: 500,
-  //       slidesToShow: 6,
-  //       slidesToScroll: 1,
-  //       infinite: false,
-  //       swipeToSlide: true,
-  //     };
-  //   }
-  //   console.log(settings)
-  //   return settings;
-  // };
-
-
   const [currentInfo, setCurrentInfo] = useState([]);
   const [currentWeather, setCurrentWeather] = useState([]);
   const [hourlyInfo, setHourlyInfo] = useState([]);
   const [dailyInfo, setDailyInfo] = useState([]);
   const [cityName, setCityName] = useState([]);
+  const [isActive, setActive] = useState("false");
+  const [isActiveNow, setActiveNow] = useState("true");
+  const [isActiveHourly, setActiveHourly] = useState("false");
+  const [isActiveDaily, setActiveDaily] = useState("false");
   let cleanupFunction = false;
+
+  const handleToggle = () => {
+    setActive(!isActive);
+  };
+
+  const handleToggleNow = () => {
+    setActiveNow("true");
+    setActiveHourly("false");
+    setActiveDaily("false");
+  };
+  
+  const handleToggleHourly = () => {
+    setActiveHourly("true");
+    setActiveNow("false");
+    setActiveDaily("false");
+  };
+
+  const handleToggleDaily = () => {
+    setActiveDaily("true");
+    setActiveNow("false");
+    setActiveHourly("false");
+  };
+
   useEffect(() => {
     const API_KEY = "76de2e175fe2b2a951e9d9be8908fc9c";
+
+    
+
     window.onload = function () {
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(function (position) {
@@ -168,8 +170,9 @@ const Homepage = () => {
           })}
         />
       </div>
-      <div className="additional-info">
-        <div className="now">
+      <div className={isActive ? "additional-info" : "additional-info active"}>
+        <div className="additional-info__open"><button className="additional-info__open-button" onClick={handleToggle}>open</button></div>
+        <div className={isActiveNow=="true" ? "now active" : "now"}>
           <div className="now__title">
             <b>Now</b>
           </div>
@@ -180,7 +183,7 @@ const Homepage = () => {
             uvi={currentInfo.uvi}
           />
         </div>
-        <div className="hourly">
+        <div className={isActiveHourly=="false" ? "hourly" : "hourly active"}>
           <div className="hourly__title">
             <b>Hourly</b>
           </div>
@@ -206,7 +209,7 @@ const Homepage = () => {
               })}
             </Slider>
         </div>
-        <div className="daily">
+        <div className={isActiveDaily=="false" ? "daily" : "daily active"}>
           <div className="daily__title">
             <b>Daily</b>
           </div>
@@ -232,6 +235,11 @@ const Homepage = () => {
                 );
               })}
             </Slider>
+        </div>
+        <div className="additional-menu">
+          <button className={isActiveNow=="true" ? "additional-menu__button additional-menu__now active" : "additional-menu__button additional-menu__now"} onClick={handleToggleNow}>Now</button>
+          <button className={isActiveHourly=="false" ? "additional-menu__button additional-info__hourly" : "additional-menu__button additional-info__hourly active"} onClick={handleToggleHourly}>Hourly</button>
+          <button className={isActiveDaily=="false" ? "additional-menu__button additional-info__daily" : "additional-menu__button additional-info__daily active"} onClick={handleToggleDaily}>Daily</button>
         </div>
       </div>
     </div>
