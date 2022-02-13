@@ -11,6 +11,12 @@
 .container {
   margin: 0 auto;
   width: 80%;
+  overflow: hidden
 }
 
 // FILES
+@import './components/Homepage.scss';
+@import './components/MainScreen.scss';
+@import './components/Hourly.scss';
+@import './components/Daily.scss';
+@import './components/Slider.scss'

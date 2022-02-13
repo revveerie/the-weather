@@ -1,16 +1,32 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
+import Slider from "react-slick";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import dateFormatCurrent from "../helpers/dateFormatCurrent.js";
 import dateFormatHourly from "../helpers/dateFormatHourly.js";
 import dateFormatDaily from "../helpers/dateFormatDaily.js";
 import tempFormat from "../helpers/tempFormat.js";
 
 import MainScreen from "./MainScreen.jsx";
+import Now from "./Now.jsx";
 import Hourly from "./Hourly.jsx";
 import Daily from "./Daily.jsx";
 
 const Homepage = () => {
+  let settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    infinite: false,
+    swipeToSlide: true
+  };
+
   const [currentInfo, setCurrentInfo] = useState([]);
   const [currentWeather, setCurrentWeather] = useState([]);
   const [hourlyInfo, setHourlyInfo] = useState([]);
@@ -66,81 +82,92 @@ const Homepage = () => {
     };
   });
   return (
-    <>
-      <div>
-        <b>Main screen</b>
+    <div className="homepage">
+      <div className="main-screen">
+        <div><b>Main screen</b></div>
+        <MainScreen
+          dt={dateFormatCurrent(currentInfo.dt)}
+          timezone={cityName}
+          temp={tempFormat(currentInfo.temp)}
+          icon={currentWeather.map((currentIcon, index) => {
+            return (
+              <div key={index}>
+                <img
+                  src={`https://raw.githubusercontent.com/vvyysotskaya/the-weather/main/src/assets/images/${currentIcon.icon}.png`}
+                />
+              </div>
+            );
+          })}
+          weather={currentWeather.map((currentIcon, index) => {
+            return <div key={index}>Weather: {currentIcon.main}</div>;
+          })}
+        />
       </div>
-      <MainScreen
-        dt={dateFormatCurrent(currentInfo.dt)}
-        timezone={cityName}
-        temp={tempFormat(currentInfo.temp)}
-        feelsLike={tempFormat(currentInfo.feels_like)}
-        humidity={currentInfo.humidity}
-        uvi={currentInfo.uvi}
-        windSpeed={currentInfo.wind_speed}
-        icon={currentWeather.map((currentIcon, index) => {
-          return (
-            <div key={index}>
-              <img
-                src={`https://raw.githubusercontent.com/vvyysotskaya/the-weather/main/src/assets/images/${currentIcon.icon}.png`}
-              />
-            </div>
-          );
-        })}
-        weather={currentWeather.map((currentIcon, index) => {
-          return <div key={index}>Weather: {currentIcon.main}</div>;
-        })}
-      />
-      <div>
-        <b>Hourly</b>
+      <div className="additional-info">
+        <div className="now">
+          <div><b>Now</b></div>
+          <Now
+            feelsLike={tempFormat(currentInfo.feels_like)}
+            windSpeed={currentInfo.wind_speed}
+            humidity={currentInfo.humidity}
+            uvi={currentInfo.uvi}
+          />
+        </div>
+        <div className="hourly">
+          <div><b>Hourly</b></div>
+          <div>
+            <Slider {...settings}>
+            {hourlyInfo.map((hourly, index) => {
+              return (
+                <div key={index} className="news-card">
+                  <Hourly
+                    dt={dateFormatHourly(hourly.dt)}
+                    temp={tempFormat(hourly.temp)}
+                    icon={hourly.weather.map((hourlyIcon, index) => {
+                      return (
+                        <div key={index}>
+                          <img
+                            src={`https://raw.githubusercontent.com/vvyysotskaya/the-weather/main/src/assets/images/${hourlyIcon.icon}.png`}
+                          />
+                        </div>
+                      );
+                    })}
+                  />
+                </div>
+              );
+            })}
+            </Slider>
+          </div>
+        </div>
+        <div className="daily">
+          <div><b>Daily</b></div>
+          <div>
+          <Slider {...settings}>
+            {dailyInfo.map((daily, index) => {
+              return (
+                <div key={index} className="news-card">
+                  <Daily
+                    dt={dateFormatDaily(daily.dt)}
+                    tempDay={tempFormat(daily.temp.day)}
+                    tempNight={tempFormat(daily.temp.night)}
+                    icon={daily.weather.map((dailyIcon, index) => {
+                      return (
+                        <div key={index}>
+                          <img
+                            src={`https://raw.githubusercontent.com/vvyysotskaya/the-weather/main/src/assets/images/${dailyIcon.icon}.png`}
+                          />
+                        </div>
+                      );
+                    })}
+                  />
+                </div>
+              );
+            })}
+            </Slider>
+          </div>
+        </div>
       </div>
-      <div>
-        {hourlyInfo.map((hourly, index) => {
-          return (
-            <div key={index} className="news-card">
-              <Hourly
-                dt={dateFormatHourly(hourly.dt)}
-                temp={tempFormat(hourly.temp)}
-                icon={hourly.weather.map((hourlyIcon, index) => {
-                  return (
-                    <div key={index}>
-                      <img
-                        src={`https://raw.githubusercontent.com/vvyysotskaya/the-weather/main/src/assets/images/${hourlyIcon.icon}.png`}
-                      />
-                    </div>
-                  );
-                })}
-              />
-            </div>
-          );
-        })}
-      </div>
-      <div>
-        <b>Daily</b>
-      </div>
-      <div>
-        {dailyInfo.map((daily, index) => {
-          return (
-            <div key={index} className="news-card">
-              <Daily
-                dt={dateFormatDaily(daily.dt)}
-                tempDay={tempFormat(daily.temp.day)}
-                tempNight={tempFormat(daily.temp.night)}
-                icon={daily.weather.map((dailyIcon, index) => {
-                  return (
-                    <div key={index}>
-                      <img
-                        src={`https://raw.githubusercontent.com/vvyysotskaya/the-weather/main/src/assets/images/${dailyIcon.icon}.png`}
-                      />
-                    </div>
-                  );
-                })}
-              />
-            </div>
-          );
-        })}
-      </div>
-    </>
+    </div>
   );
 };
 
