@@ -1,0 +1,49 @@
+ .hourly {
+     &__title {
+         margin: 0 0 10px 0;
+     }
+     &__card {
+        //  width: 100px;
+        display: flex!important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        width: 100px!important;
+        padding: 10px;
+        border-radius: 20px;
+     }
+     &__card-image {
+         width: 50%;
+         display: flex;
+         justify-content: center;
+         margin: 0 0 10px 0;
+        img {
+            height: 60px;
+        }
+    }
+    &__temp {
+        margin: 0 0 10px 0;
+    }
+    &__temp-text {
+        font-family: 'Manrope';
+        font-weight: 700;
+        font-size: 18px;
+        position: relative;
+        &::after {
+            content: '';
+            position: absolute;
+            height: 5px;
+            width: 5px;
+            border-radius: 50%;
+            border: 2px solid #000;
+        }
+    }
+    &__time {
+    }
+    &__time-text {
+        // font-family: 'Manrope';
+        // font-weight: 400;
+        opacity: 0.5;
+    }
+ }

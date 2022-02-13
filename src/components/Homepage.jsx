@@ -21,7 +21,7 @@ const Homepage = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 6,
     slidesToScroll: 1,
     infinite: false,
     swipeToSlide: true,
@@ -104,7 +104,7 @@ const Homepage = () => {
       </div>
       <div className="additional-info">
         <div className="now">
-          <div>
+          <div className="now__title">
             <b>Now</b>
           </div>
           <Now
@@ -115,20 +115,19 @@ const Homepage = () => {
           />
         </div>
         <div className="hourly">
-          <div>
+          <div className="hourly__title">
             <b>Hourly</b>
           </div>
-          <div>
             <Slider {...settings}>
               {hourlyInfo.map((hourly, index) => {
                 return (
-                  <div key={index} className="news-card">
+                  <div key={index} className="hourly__card">
                     <Hourly
                       dt={dateFormatHourly(hourly.dt)}
                       temp={tempFormat(hourly.temp)}
                       icon={hourly.weather.map((hourlyIcon, index) => {
                         return (
-                          <div key={index}>
+                          <div key={index} className="hourly__card-image">
                             <img
                               src={`https://raw.githubusercontent.com/vvyysotskaya/the-weather/main/src/assets/images/${hourlyIcon.icon}.png`}
                             />
@@ -140,7 +139,6 @@ const Homepage = () => {
                 );
               })}
             </Slider>
-          </div>
         </div>
         <div className="daily">
           <div>
