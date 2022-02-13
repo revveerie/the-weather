@@ -24,7 +24,7 @@ const Homepage = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     infinite: false,
-    swipeToSlide: true
+    swipeToSlide: true,
   };
 
   const [currentInfo, setCurrentInfo] = useState([]);
@@ -33,7 +33,7 @@ const Homepage = () => {
   const [dailyInfo, setDailyInfo] = useState([]);
   const [cityName, setCityName] = useState([]);
   let cleanupFunction = false;
-  useEffect(() => {
+  // useEffect(() => {
     const API_KEY = "76de2e175fe2b2a951e9d9be8908fc9c";
     window.onload = function () {
       if ("geolocation" in navigator) {
@@ -80,18 +80,17 @@ const Homepage = () => {
         console.log("Browser doesn't support geolocation!");
       }
     };
-  });
+  // });
   return (
     <div className="homepage">
       <div className="main-screen">
-        <div><b>Main screen</b></div>
         <MainScreen
           dt={dateFormatCurrent(currentInfo.dt)}
           timezone={cityName}
           temp={tempFormat(currentInfo.temp)}
           icon={currentWeather.map((currentIcon, index) => {
             return (
-              <div key={index}>
+              <div key={index} className="main-screen__image">
                 <img
                   src={`https://raw.githubusercontent.com/vvyysotskaya/the-weather/main/src/assets/images/${currentIcon.icon}.png`}
                 />
@@ -99,13 +98,15 @@ const Homepage = () => {
             );
           })}
           weather={currentWeather.map((currentIcon, index) => {
-            return <div key={index}>Weather: {currentIcon.main}</div>;
+            return <div key={index} className="main-screen__weather"><p className="main-screen__weather-text">{currentIcon.main}</p></div>;
           })}
         />
       </div>
       <div className="additional-info">
         <div className="now">
-          <div><b>Now</b></div>
+          <div>
+            <b>Now</b>
+          </div>
           <Now
             feelsLike={tempFormat(currentInfo.feels_like)}
             windSpeed={currentInfo.wind_speed}
@@ -114,55 +115,59 @@ const Homepage = () => {
           />
         </div>
         <div className="hourly">
-          <div><b>Hourly</b></div>
+          <div>
+            <b>Hourly</b>
+          </div>
           <div>
             <Slider {...settings}>
-            {hourlyInfo.map((hourly, index) => {
-              return (
-                <div key={index} className="news-card">
-                  <Hourly
-                    dt={dateFormatHourly(hourly.dt)}
-                    temp={tempFormat(hourly.temp)}
-                    icon={hourly.weather.map((hourlyIcon, index) => {
-                      return (
-                        <div key={index}>
-                          <img
-                            src={`https://raw.githubusercontent.com/vvyysotskaya/the-weather/main/src/assets/images/${hourlyIcon.icon}.png`}
-                          />
-                        </div>
-                      );
-                    })}
-                  />
-                </div>
-              );
-            })}
+              {hourlyInfo.map((hourly, index) => {
+                return (
+                  <div key={index} className="news-card">
+                    <Hourly
+                      dt={dateFormatHourly(hourly.dt)}
+                      temp={tempFormat(hourly.temp)}
+                      icon={hourly.weather.map((hourlyIcon, index) => {
+                        return (
+                          <div key={index}>
+                            <img
+                              src={`https://raw.githubusercontent.com/vvyysotskaya/the-weather/main/src/assets/images/${hourlyIcon.icon}.png`}
+                            />
+                          </div>
+                        );
+                      })}
+                    />
+                  </div>
+                );
+              })}
             </Slider>
           </div>
         </div>
         <div className="daily">
-          <div><b>Daily</b></div>
           <div>
-          <Slider {...settings}>
-            {dailyInfo.map((daily, index) => {
-              return (
-                <div key={index} className="news-card">
-                  <Daily
-                    dt={dateFormatDaily(daily.dt)}
-                    tempDay={tempFormat(daily.temp.day)}
-                    tempNight={tempFormat(daily.temp.night)}
-                    icon={daily.weather.map((dailyIcon, index) => {
-                      return (
-                        <div key={index}>
-                          <img
-                            src={`https://raw.githubusercontent.com/vvyysotskaya/the-weather/main/src/assets/images/${dailyIcon.icon}.png`}
-                          />
-                        </div>
-                      );
-                    })}
-                  />
-                </div>
-              );
-            })}
+            <b>Daily</b>
+          </div>
+          <div>
+            <Slider {...settings}>
+              {dailyInfo.map((daily, index) => {
+                return (
+                  <div key={index} className="news-card">
+                    <Daily
+                      dt={dateFormatDaily(daily.dt)}
+                      tempDay={tempFormat(daily.temp.day)}
+                      tempNight={tempFormat(daily.temp.night)}
+                      icon={daily.weather.map((dailyIcon, index) => {
+                        return (
+                          <div key={index}>
+                            <img
+                              src={`https://raw.githubusercontent.com/vvyysotskaya/the-weather/main/src/assets/images/${dailyIcon.icon}.png`}
+                            />
+                          </div>
+                        );
+                      })}
+                    />
+                  </div>
+                );
+              })}
             </Slider>
           </div>
         </div>
