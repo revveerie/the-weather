@@ -1,9 +1,9 @@
  .hourly {
+    margin: 0 0 20px;
      &__title {
          margin: 0 0 10px 0;
      }
      &__card {
-        //  width: 100px;
         display: flex!important;
         flex-direction: column;
         align-items: center;
@@ -42,8 +42,6 @@
     &__time {
     }
     &__time-text {
-        // font-family: 'Manrope';
-        // font-weight: 400;
         opacity: 0.5;
     }
  }

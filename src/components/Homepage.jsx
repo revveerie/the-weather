@@ -141,21 +141,20 @@ const Homepage = () => {
             </Slider>
         </div>
         <div className="daily">
-          <div>
+          <div className="daily__title">
             <b>Daily</b>
           </div>
-          <div>
             <Slider {...settings}>
               {dailyInfo.map((daily, index) => {
                 return (
-                  <div key={index} className="news-card">
+                  <div key={index} className="daily__card">
                     <Daily
                       dt={dateFormatDaily(daily.dt)}
                       tempDay={tempFormat(daily.temp.day)}
                       tempNight={tempFormat(daily.temp.night)}
                       icon={daily.weather.map((dailyIcon, index) => {
                         return (
-                          <div key={index}>
+                          <div key={index} className="daily__card-image">
                             <img
                               src={`https://raw.githubusercontent.com/vvyysotskaya/the-weather/main/src/assets/images/${dailyIcon.icon}.png`}
                             />
@@ -167,7 +166,6 @@ const Homepage = () => {
                 );
               })}
             </Slider>
-          </div>
         </div>
       </div>
     </div>

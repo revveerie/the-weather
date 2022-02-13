@@ -6,6 +6,9 @@
     &__row {
         display: flex;
         align-items: center;
+        background: #fff;
+        border-radius: 20px;
+        padding: 10px;
     }
     &__item {
         display: flex;

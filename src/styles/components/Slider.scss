@@ -26,6 +26,27 @@
         .hourly__time-text {
             color: #fff;
         }
+        .daily__card {
+            background: #7359DC;
+        }
+        .daily__temp-text {
+            font-family: 'Manrope';
+            font-weight: 700;
+            font-size: 18px;
+            position: relative;
+            color: #fff;
+            &::after {
+                content: '';
+                position: absolute;
+                height: 5px;
+                width: 5px;
+                border-radius: 50%;
+                border: 2px solid #fff;
+            }
+        }
+        .daily__time-text {
+            color: #fff;
+        }
     }
 }
 
