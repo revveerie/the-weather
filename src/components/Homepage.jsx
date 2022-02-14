@@ -16,6 +16,8 @@ import Now from "./Now.jsx";
 import Hourly from "./Hourly.jsx";
 import Daily from "./Daily.jsx";
 
+import Arrow from "../assets/images/left-chevron.svg";
+
 const Homepage = () => {
   var settings = {
     dots: false,
@@ -171,7 +173,10 @@ const Homepage = () => {
         />
       </div>
       <div className={isActive ? "additional-info" : "additional-info active"}>
-        <div className="additional-info__open"><button className="additional-info__open-button" onClick={handleToggle}>open</button></div>
+        <div className="additional-info__open">
+          <p className="additional-info__open-text">More info</p>
+          <button className={isActive ? "additional-info__open-button" : "additional-info__open-button active"} onClick={handleToggle}><img src={Arrow} /></button>
+        </div>
         <div className={isActiveNow=="true" ? "now active" : "now"}>
           <div className="now__title">
             <b>Now</b>
