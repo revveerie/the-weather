@@ -10,6 +10,7 @@ import dateFormatCurrent from "../helpers/dateFormatCurrent.js";
 import dateFormatHourly from "../helpers/dateFormatHourly.js";
 import dateFormatDaily from "../helpers/dateFormatDaily.js";
 import tempFormat from "../helpers/tempFormat.js";
+import speedFormat from "../helpers/speedFormat.js";
 
 import MainScreen from "./MainScreen.jsx";
 import Now from "./Now.jsx";
@@ -183,7 +184,7 @@ const Homepage = () => {
           </div>
           <Now
             feelsLike={tempFormat(currentInfo.feels_like)}
-            windSpeed={currentInfo.wind_speed}
+            windSpeed={speedFormat(currentInfo.wind_speed)}
             humidity={currentInfo.humidity}
             uvi={currentInfo.uvi}
           />
