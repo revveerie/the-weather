@@ -74,6 +74,7 @@ body {
     width: 100%;
     margin: 0 0 15px 20px;
     border-top: 1px solid rgba(0, 0, 0, 0.2);
+    position: relative;
   }
 }
 
@@ -88,7 +89,32 @@ body {
   &.active {
     font-weight: 700;
     opacity: 1;
-    border-top: 1px solid #000;
+    // border-top: 1px solid #000;
+    transition: 400ms;
+  }
+}
+
+.additional-info__open-text {
+  font-weight: 700;
+}
+
+.additional-menu__indicator {
+  position: absolute;
+  width: 80px;
+  height: 1px;
+  top: -1px;
+  background: #000;
+  transition: 400ms;
+  &.now-active {
+    left: 0;
+    transition: 400ms;
+  }
+  &.hourly-active {
+    left: 80px;
+    transition: 400ms;
+  }
+  &.daily-active {
+    left: 160px;
     transition: 400ms;
   }
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import { NavLink } from 'react-router-dom';
 
 import Slider from "react-slick";
 
@@ -243,6 +244,7 @@ const Homepage = () => {
             </Slider>
         </div>
         <div className="additional-menu">
+          <span className={isActiveNow=="true" ? "additional-menu__indicator now-active" : isActiveHourly=="true" ? "additional-menu__indicator hourly-active" : "additional-menu__indicator daily-active"}></span>
           <button className={isActiveNow=="true" ? "additional-menu__button additional-menu__now active" : "additional-menu__button additional-menu__now"} onClick={handleToggleNow}>Now</button>
           <button className={isActiveHourly=="false" ? "additional-menu__button additional-info__hourly" : "additional-menu__button additional-info__hourly active"} onClick={handleToggleHourly}>Hourly</button>
           <button className={isActiveDaily=="false" ? "additional-menu__button additional-info__daily" : "additional-menu__button additional-info__daily active"} onClick={handleToggleDaily}>Daily</button>
