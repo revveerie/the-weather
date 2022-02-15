@@ -1,6 +1,5 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { NavLink } from 'react-router-dom';
 
 import Slider from "react-slick";
 
@@ -55,15 +54,21 @@ const Homepage = () => {
         }
       },
       {
-        breakpoint: 575,
+        breakpoint: 480,
         settings: {
-          slidesToShow: 4
+          slidesToShow: 6
         }
       },
       {
-        breakpoint: 400,
+        breakpoint: 395,
         settings: {
-          slidesToShow: 3
+          slidesToShow: 5
+        }
+      },
+      {
+        breakpoint: 330,
+        settings: {
+          slidesToShow: 4
         }
       },
     ]
