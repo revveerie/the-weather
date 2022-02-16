@@ -16,7 +16,7 @@ import MainScreen from "./MainScreen.jsx";
 import Now from "./Now.jsx";
 import Hourly from "./Hourly.jsx";
 import Daily from "./Daily.jsx";
-
+import Preloader from "./Preloader.jsx";
 import Arrow from "../assets/images/left-chevron.svg";
 
 const Homepage = () => {
@@ -83,6 +83,7 @@ const Homepage = () => {
   const [isActiveNow, setActiveNow] = useState("true");
   const [isActiveHourly, setActiveHourly] = useState("false");
   const [isActiveDaily, setActiveDaily] = useState("false");
+  const [isFetch, setFetch] = useState("false");
   let cleanupFunction = false;
 
   const handleToggle = () => {
@@ -125,11 +126,13 @@ const Homepage = () => {
             })
             .then(function (data) {
               console.log(data);
+                
               if (!cleanupFunction) {
                 setCurrentInfo(data.current);
                 setCurrentWeather(data.current.weather);
                 setHourlyInfo(data.hourly);
                 setDailyInfo(data.daily);
+                setFetch(true);
               }
             });
           fetch(CITY_URL)
@@ -158,105 +161,113 @@ const Homepage = () => {
       }
     };
   });
-  return (
-    <div className="homepage">
-      <div className="main-screen">
-        <MainScreen
-          dt={dateFormatCurrent(currentInfo.dt)}
-          timezone={cityName}
-          temp={tempFormat(currentInfo.temp)}
-          icon={currentWeather.map((currentIcon, index) => {
-            return (
-              <div key={index} className="main-screen__image">
-                <img
-                  src={`https://raw.githubusercontent.com/vvyysotskaya/the-weather/main/src/assets/images/${currentIcon.icon}.png`}
-                />
-              </div>
-            );
-          })}
-          weather={currentWeather.map((currentIcon, index) => {
-            return <div key={index} className="main-screen__weather"><p className="main-screen__weather-text">{currentIcon.main}</p></div>;
-          })}
-        />
-      </div>
-      <div className={isActive ? "additional-info" : "additional-info active"}>
-        <div className="additional-info__open">
-          <p className="additional-info__open-text">More info</p>
-          <button className={isActive ? "additional-info__open-button" : "additional-info__open-button active"} onClick={handleToggle}><img src={Arrow} /></button>
-        </div>
-        <div className={isActiveNow=="true" ? "now active" : "now"}>
-          <div className="now__title">
-            <b>Now</b>
-          </div>
-          <Now
-            feelsLike={tempFormat(currentInfo.feels_like)}
-            windSpeed={speedFormat(currentInfo.wind_speed)}
-            humidity={currentInfo.humidity}
-            uvi={currentInfo.uvi}
+  if (isFetch==true) {
+    return (
+      <div className="homepage">
+        <div className="main-screen">
+          <MainScreen
+            dt={dateFormatCurrent(currentInfo.dt)}
+            timezone={cityName}
+            temp={tempFormat(currentInfo.temp)}
+            icon={currentWeather.map((currentIcon, index) => {
+              return (
+                <div key={index} className="main-screen__image">
+                  <img
+                    src={`https://raw.githubusercontent.com/vvyysotskaya/the-weather/main/src/assets/images/${currentIcon.icon}.png`}
+                  />
+                </div>
+              );
+            })}
+            weather={currentWeather.map((currentIcon, index) => {
+              return <div key={index} className="main-screen__weather"><p className="main-screen__weather-text">{currentIcon.main}</p></div>;
+            })}
           />
         </div>
-        <div className={isActiveHourly=="false" ? "hourly" : "hourly active"}>
-          <div className="hourly__title">
-            <b>Hourly</b>
+        <div className={isActive ? "additional-info" : "additional-info active"}>
+          <div className="additional-info__open">
+            <p className="additional-info__open-text">More info</p>
+            <button className={isActive ? "additional-info__open-button" : "additional-info__open-button active"} onClick={handleToggle}><img src={Arrow} /></button>
           </div>
-            <Slider {...settings}>
-              {hourlyInfo.map((hourly, index) => {
-                return (
-                  <div key={index} className="hourly__card">
-                    <Hourly
-                      dt={dateFormatHourly(hourly.dt)}
-                      temp={tempFormat(hourly.temp)}
-                      icon={hourly.weather.map((hourlyIcon, index) => {
-                        return (
-                          <div key={index} className="hourly__card-image">
-                            <img
-                              src={`https://raw.githubusercontent.com/vvyysotskaya/the-weather/main/src/assets/images/${hourlyIcon.icon}.png`}
-                            />
-                          </div>
-                        );
-                      })}
-                    />
-                  </div>
-                );
-              })}
-            </Slider>
-        </div>
-        <div className={isActiveDaily=="false" ? "daily" : "daily active"}>
-          <div className="daily__title">
-            <b>Daily</b>
+          <div className={isActiveNow=="true" ? "now active" : "now"}>
+            <div className="now__title">
+              <b>Now</b>
+            </div>
+            <Now
+              feelsLike={tempFormat(currentInfo.feels_like)}
+              windSpeed={speedFormat(currentInfo.wind_speed)}
+              humidity={currentInfo.humidity}
+              uvi={currentInfo.uvi}
+            />
           </div>
-            <Slider {...settings}>
-              {dailyInfo.map((daily, index) => {
-                return (
-                  <div key={index} className="daily__card">
-                    <Daily
-                      dt={dateFormatDaily(daily.dt)}
-                      tempDay={tempFormat(daily.temp.day)}
-                      tempNight={tempFormat(daily.temp.night)}
-                      icon={daily.weather.map((dailyIcon, index) => {
-                        return (
-                          <div key={index} className="daily__card-image">
-                            <img
-                              src={`https://raw.githubusercontent.com/vvyysotskaya/the-weather/main/src/assets/images/${dailyIcon.icon}.png`}
-                            />
-                          </div>
-                        );
-                      })}
-                    />
-                  </div>
-                );
-              })}
-            </Slider>
-        </div>
-        <div className="additional-menu">
-          <span className={isActiveNow=="true" ? "additional-menu__indicator now-active" : isActiveHourly=="true" ? "additional-menu__indicator hourly-active" : "additional-menu__indicator daily-active"}></span>
-          <button className={isActiveNow=="true" ? "additional-menu__button additional-menu__now active" : "additional-menu__button additional-menu__now"} onClick={handleToggleNow}>Now</button>
-          <button className={isActiveHourly=="false" ? "additional-menu__button additional-info__hourly" : "additional-menu__button additional-info__hourly active"} onClick={handleToggleHourly}>Hourly</button>
-          <button className={isActiveDaily=="false" ? "additional-menu__button additional-info__daily" : "additional-menu__button additional-info__daily active"} onClick={handleToggleDaily}>Daily</button>
+          <div className={isActiveHourly=="false" ? "hourly" : "hourly active"}>
+            <div className="hourly__title">
+              <b>Hourly</b>
+            </div>
+              <Slider {...settings}>
+                {hourlyInfo.map((hourly, index) => {
+                  return (
+                    <div key={index} className="hourly__card">
+                      <Hourly
+                        dt={dateFormatHourly(hourly.dt)}
+                        temp={tempFormat(hourly.temp)}
+                        icon={hourly.weather.map((hourlyIcon, index) => {
+                          return (
+                            <div key={index} className="hourly__card-image">
+                              <img
+                                src={`https://raw.githubusercontent.com/vvyysotskaya/the-weather/main/src/assets/images/${hourlyIcon.icon}.png`}
+                              />
+                            </div>
+                          );
+                        })}
+                      />
+                    </div>
+                  );
+                })}
+              </Slider>
+          </div>
+          <div className={isActiveDaily=="false" ? "daily" : "daily active"}>
+            <div className="daily__title">
+              <b>Daily</b>
+            </div>
+              <Slider {...settings}>
+                {dailyInfo.map((daily, index) => {
+                  return (
+                    <div key={index} className="daily__card">
+                      <Daily
+                        dt={dateFormatDaily(daily.dt)}
+                        tempDay={tempFormat(daily.temp.day)}
+                        tempNight={tempFormat(daily.temp.night)}
+                        icon={daily.weather.map((dailyIcon, index) => {
+                          return (
+                            <div key={index} className="daily__card-image">
+                              <img
+                                src={`https://raw.githubusercontent.com/vvyysotskaya/the-weather/main/src/assets/images/${dailyIcon.icon}.png`}
+                              />
+                            </div>
+                          );
+                        })}
+                      />
+                    </div>
+                  );
+                })}
+              </Slider>
+          </div>
+          <div className="additional-menu">
+            <span className={isActiveNow=="true" ? "additional-menu__indicator now-active" : isActiveHourly=="true" ? "additional-menu__indicator hourly-active" : "additional-menu__indicator daily-active"}></span>
+            <button className={isActiveNow=="true" ? "additional-menu__button additional-menu__now active" : "additional-menu__button additional-menu__now"} onClick={handleToggleNow}>Now</button>
+            <button className={isActiveHourly=="false" ? "additional-menu__button additional-info__hourly" : "additional-menu__button additional-info__hourly active"} onClick={handleToggleHourly}>Hourly</button>
+            <button className={isActiveDaily=="false" ? "additional-menu__button additional-info__daily" : "additional-menu__button additional-info__daily active"} onClick={handleToggleDaily}>Daily</button>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+  else {
+    return (
+      <Preloader />
+    )
+  }
+  
 };
 
 export default Homepage;
