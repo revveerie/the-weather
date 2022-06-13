@@ -1,6 +1,6 @@
 # ☂️ the.weather
 
-![the.weather](https://user-images.githubusercontent.com/88598017/154752111-7dda1c9e-6935-4c79-9acb-e3e17e5ab813.png)
+![the.weather](https://raw.githubusercontent.com/vvyysotskaya/vvyysotskaya/main/src/assets/images/the-weather.jpg)
 
 ## Deploy
 
