@@ -4,7 +4,7 @@
 
 ## Deploy
 
-https://vvyysotskaya-the-weather.netlify.app/
+https://revveerie-the-weather.netlify.app/
 
 ## Technologies used
 ![SASS](https://img.shields.io/badge/-SASS-090909?style=for-the-badge&logo=sass)
